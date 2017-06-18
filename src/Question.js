@@ -4,18 +4,23 @@ import './Question.css';
 
 class Question extends Component {
 
+    onChange = (value) => {
+        const { onChange, question } = this.props;
+        onChange(value, question.number);
+    }
+
     render() {
         const { question } = this.props;
         const { number, text, options, value } = question;
         return (
             <div className="question">
-                <div class="form-group">
-                    <label for="age">{number}. {text}</label>
+                <div className="form-group">
+                    <label htmlFor="number">{number}. {text}</label>
                     <Select
                         name="number"
                         value={value}
                         options={options}
-                        onChange={onChange}
+                        onChange={this.onChange}
                     />
                 </div>
             </div>
