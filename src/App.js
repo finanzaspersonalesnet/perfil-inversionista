@@ -111,7 +111,8 @@ class App extends Component {
           ],
           value: null
         },
-      ]
+      ],
+      profile: null
     }
   }
 
@@ -134,7 +135,19 @@ class App extends Component {
   }
 
   showProfile = () => {
-    console.log("Send")
+    let value = 0;
+    const { questions } = this.state;
+    questions.map(q => {
+      value += q.value.value;
+    })
+    console.log(value);
+    if(value >= 10 && value <= 15 ) this.setState({profile: 'conservador'});
+    if(value >= 16 && value <= 24 ) this.setState({profile: 'moderado'});
+    if(value >= 25 && value <= 30 ) this.setState({profile: 'agresivo'});  
+  }
+
+  renderProfile = () => {
+    
   }
 
   render() {
