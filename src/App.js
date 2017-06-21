@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Question from './Question';
+import Profile from './Profile';
 
 import logo from './logo.svg';
 import 'react-select/dist/react-select.css';
@@ -138,19 +139,56 @@ class App extends Component {
     let value = 0;
     const { questions } = this.state;
     questions.map(q => {
-      value += q.value.value;
-    })
+      return value += q.value.value;
+    });
     console.log(value);
-    if(value >= 10 && value <= 15 ) this.setState({profile: 'conservador'});
-    if(value >= 16 && value <= 24 ) this.setState({profile: 'moderado'});
-    if(value >= 25 && value <= 30 ) this.setState({profile: 'agresivo'});  
+    if (value >= 10 && value <= 15) this.setState({ profile: 'conservador' });
+    if (value >= 16 && value <= 24) this.setState({ profile: 'moderado' });
+    if (value >= 25 && value <= 30) this.setState({ profile: 'agresivo' });
+    this.setState({ showProfile: true });
   }
 
   renderProfile = () => {
-    
+    const { profile: profileSelected } = this.state;
+    let profile = {};
+    switch (profileSelected) {
+      case 'conservador':
+        profile = {
+          title: 'Conservador',
+          description: `No toleras mucho el riesgo. Variaciones en tus inversiones
+          podrían quitarte el sueño, asi que prefieres tener mayor certeza y
+          rendimientos bajos, incluso aunque solo conserves el poder adquisitivo
+          de tu inversión. Sientes inseguridad hacia tus ingresos futuros.`
+        }
+        break;
+      case 'moderado':
+        profile = {
+          title: 'Moderado',
+          description: `Te permites tomar algunos riesgos al invertir buscando
+          siempre conseguir una rentabilidad extra en tu inversión. En el corto plazo
+          soportas variaciones en tu inversión, pero esperas a mediano plazo
+          comenzar a ver rendimientos. Si no sucede, comienzas a preocuparte. Sientes
+          seguridad ante ingresos estables en un futuro.`
+        }
+        break;
+      case 'agresivo':
+        profile = {
+          title: 'Agresivo',
+          description: `No te molesta tomar riesgos, y estás dispuesto a soportar
+          variaciones grandes en el valor de tu inversión con tal de obtener una
+          rentabilidad elevada pensando en el largo plazo. Crees firmemente que
+          si en el corto plazo hay perdidas, puedes recuperarte totalmente en el
+          largo plazo.`
+        }
+        break;
+      default:
+        profile = {};
+    }
+    return (<Profile profile={profile} />);
   }
 
   render() {
+    const { showProfile } = this.state;
     return (
       <div className="App">
         <div className="App-header">
@@ -161,8 +199,10 @@ class App extends Component {
           This is a Intro
         </p>
         <div className="questions">
-          {this.renderQuestions()}
-          <button className="btn btn-success" onClick={this.showProfile}>Ver mi perfil</button>
+          {showProfile ? this.renderProfile() : this.renderQuestions()}
+          {!showProfile &&
+            <button className="btn btn-success" onClick={this.showProfile}>Ver mi perfil</button>
+          }
         </div>
       </div>
     );
