@@ -120,7 +120,7 @@ class App extends Component {
   renderQuestions = () => {
     const { questions } = this.state;
     return questions.map(question => {
-      return (<Question question={question} onChange={this.onChange} />)
+      return (<Question question={question} key={question.number} onChange={this.onChange} />)
     });
   }
 
@@ -193,10 +193,11 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Perfil de Inversionista Primario</h2>
         </div>
         <p className="App-intro">
-          This is a Intro
+          Contesta estas cortas preguntas y descubre cual es tu perfil de inversión
+          primario. Para más información visita <a href="http://www.finanzaspersonales.net">FinanzasPersonales.net</a>
         </p>
         <div className="questions">
           {showProfile ? this.renderProfile() : this.renderQuestions()}
