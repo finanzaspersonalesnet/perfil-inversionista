@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import Profile from './Profile';
-
-import logo from './logo.svg';
 import 'react-select/dist/react-select.css';
 import './bootstrap/css/bootstrap.min.css';
 import './App.css';
@@ -135,8 +133,10 @@ class App extends Component {
     })
   }
 
-  showProfile = () => {
+  showProfile = (event) => {
+    event.preventDefault();
     let value = 0;
+    console.log(value);
     const { questions } = this.state;
     questions.map(q => {
       return value += q.value.value;
@@ -190,20 +190,38 @@ class App extends Component {
   render() {
     const { showProfile } = this.state;
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Perfil de Inversionista Primario</h2>
+      <div>
+        <div className="container-fluid container-background">
+          <div className="jumbotron jumbotron-app">
+            <div className="row">
+              <div className="col-sm-10 col-sm-offset-1">
+                {/*<img src={logo} className="App-logo" alt="logo" />*/}
+                <h2 className="app-title">
+                  Cuestionario: Perfil de Inversionista Primario
+              </h2>
+                <p className="app-description">
+                  Contesta estas cortas preguntas y descubre cual es tu perfil de inversión
+              primario. Para más información visita <a href="http://www.finanzaspersonales.net">FinanzasPersonales.net</a>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="App-intro">
-          Contesta estas cortas preguntas y descubre cual es tu perfil de inversión
-          primario. Para más información visita <a href="http://www.finanzaspersonales.net">FinanzasPersonales.net</a>
-        </p>
-        <div className="questions">
-          {showProfile ? this.renderProfile() : this.renderQuestions()}
-          {!showProfile &&
-            <button className="btn btn-success" onClick={this.showProfile}>Ver mi perfil</button>
-          }
+        <div className="container-fluid app-questions">
+          <div className="row">
+            <div className="col-sm-10 col-sm-offset-1">
+              <div className="questions">
+                {showProfile ?
+                  this.renderProfile()
+                  :
+                  <form onSubmit={this.showProfile}>
+                    {this.renderQuestions()}
+                    <input type="submit" className="btn btn-success" value="Ver mi perfil" />
+                  </form>
+                }
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

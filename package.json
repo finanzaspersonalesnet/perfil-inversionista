@@ -19,5 +19,5 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://smendozaisf.github.io/perfil-inversionista"
+  "homepage": "http://perfil-inversionista.finanzaspersonales.net"
 }

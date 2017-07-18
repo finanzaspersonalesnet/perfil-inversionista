@@ -21,6 +21,7 @@ class Question extends Component {
                         value={value}
                         options={options}
                         onChange={this.onChange}
+                        required={true}
                     />
                 </div>
             </div>
